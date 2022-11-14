@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="apInterfazChat" prefHeight="396.0" prefWidth="478" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="/home/javier/InterfaceTest/Controller">
+<children>
+      <TitledPane collapsible="false" layoutX="-1.0" prefHeight="396.0" prefWidth="478.0" text="Conversación en vivo" />
+    <Button fx:id="button_send" layoutX="404" layoutY="338" text="Enviar" />
+    <TextField fx:id="tf_message" layoutX="30" layoutY="338" prefHeight="26" prefWidth="361" />
+    <ScrollPane fx:id="sp_Main" fitToWidth="true" layoutX="30" layoutY="70" prefHeight="256" prefWidth="418">
+        <content>
+            <VBox fx:id="vbox_messages" prefHeight="248" prefWidth="412" />
+        </content>
+    </ScrollPane>
+    <Label alignment="CENTER" layoutX="32.0" layoutY="30.0" prefHeight="36.0" prefWidth="418.0" style="-fx-border-color: BLACK;" text="Estas hablando con Roberto ..." textAlignment="JUSTIFY">
+        <font>
+            <Font name="Arial Rounded HT Sold" size="23" />
+        </font>
+    </Label>
+</children>
+
+</AnchorPane>

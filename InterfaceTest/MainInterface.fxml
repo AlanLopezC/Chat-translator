@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="apInterfazChat" prefHeight="426.0" prefWidth="478" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+    <children>
+        <TabPane>
+            <Tab fx:id="tab1" closable="false" text="Conversación">
+                <fx:include source="ChatInterface.fxml" />
+            </Tab>
+            <Tab fx:id="tab2" closable="false" text="...">
+                <MenuBar>
+                    <menus>
+                        <Menu text="Configuración">
+                            <items>
+                                <MenuItem text="Notificaciones"></MenuItem>
+                                <MenuItem text="Privacidad"></MenuItem>
+                                <MenuItem text="Seguridad"></MenuItem>
+                                <MenuItem text="Tema"></MenuItem>
+                                <MenuItem text="Fondo de pantalla del chat"></MenuItem>
+                                <MenuItem text="Solicitar info. de mi cuenta"></MenuItem>
+                                <MenuItem text="Atajos del teclado"></MenuItem>
+                                <MenuItem text="Ayuda"></MenuItem>
+                            </items>
+                        </Menu>
+                        <Menu text="Contactos">
+                        </Menu>
+                        <Menu text="Notificaciones"></Menu>
+                    </menus>
+                </MenuBar>
+            </Tab>
+        </TabPane>
+    </children>
+
+</AnchorPane>
