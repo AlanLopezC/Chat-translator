@@ -1,5 +1,7 @@
-public interface Observador{
+package Chat;
+
+public interface Observador {
 
     public void actualizar();
-    
+
 }
