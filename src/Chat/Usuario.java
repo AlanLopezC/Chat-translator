@@ -28,15 +28,18 @@ public class Usuario implements Observador,Serializable{
         Cliente c = new Cliente(puertoCliente,mensaje);
         Thread t = new Thread(c);
         t.start();
-        c = new Cliente(puertoServer,mensaje);
+        
+        /*c = new Cliente(puertoServer,mensaje);
         t = new Thread(c);
-        t.start();
+        t.start();*/
         
         
     }
     
     public void actualizar(){
-        System.out.print(servidor.getMensaje());
+        //System.out.print(servidor.getMensaje());
+        Controller.receiveMessage(servidor.getMensaje());
+        
     }
 
     

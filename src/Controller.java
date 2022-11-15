@@ -101,7 +101,7 @@ public class Controller {
                 textFlow.getChildren().add(separator);
                 textField.clear();
 
-                usuario.enviarMensaje(nombre + message);
+                usuario.enviarMensaje(usuario.getNombre() + ": " + message);
             }
         });
     }
@@ -112,18 +112,25 @@ public class Controller {
 
     public static void receiveMessage(String message){
 
-        Separator separator = new Separator(Orientation.HORIZONTAL);
-        separator.setStyle("-fx-background-color: black;");
-        textFlow.getChildren().add(new Text(System.lineSeparator()));
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
 
-        Text text = new Text(message + "\n" + DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).format(LocalDateTime.now()) + "\n");
-        text.setStroke(Color.BLACK);
-        // textFlow.getChildren(new Text(System.lineSeparator()));
-        textFlow.getChildren().add(text);
-        textFlow.getChildren().add(new Text(System.lineSeparator()));
+                Separator separator = new Separator(Orientation.HORIZONTAL);
+                separator.setStyle("-fx-background-color: black;");
+                textFlow.getChildren().add(new Text(System.lineSeparator()));
 
-        separator.prefWidthProperty().bind(textFlow.widthProperty());
-        textFlow.getChildren().add(separator);
+                Text text = new Text(message + "\n" + DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).format(LocalDateTime.now()) + "\n");
+                text.setStroke(Color.BLACK);
+                // textFlow.getChildren(new Text(System.lineSeparator()));
+                textFlow.getChildren().add(text);
+                textFlow.getChildren().add(new Text(System.lineSeparator()));
+
+                separator.prefWidthProperty().bind(textFlow.widthProperty());
+                textFlow.getChildren().add(separator);
+
+            }
+        });
     }
 
 }
