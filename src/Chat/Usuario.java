@@ -30,7 +30,7 @@ public class Usuario implements Observador, Serializable {
     }
 
     public void enviarMensaje(String mensaje) {
-        // {lang-code}-{mensaje} es-hola
+        // {lang-code}-{mensaje} "es-hola"
         String codedMessage = lang + "-" + mensaje;
         Cliente c = new Cliente(puertoCliente, codedMessage);
         Thread t = new Thread(c);

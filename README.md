@@ -1,5 +1,9 @@
+En caso de no tener carpeta lib/:
+Hay que agregar carpeta lib/javafx-17.0.1
 
-comands:
+
+
+Comands:
 
 cd src
 

@@ -12,9 +12,11 @@ import javafx.scene.text.TextFlow;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.HashMap;
 
 import Chat.Usuario;
 import Idioma.Traductor;
+import UI.Languages.*;
 
 public class Controller {
 
@@ -33,18 +35,36 @@ public class Controller {
     private static Usuario usuario;
 
     public VBox getConfigS() {
+        LanguageInterface languageI;
+        switch (usuario.getLang()) {
+            case "es":
+                languageI = new SpanishUI();
+                break;
+            case "en":
+                languageI = new EnglishUI();
+                break;
+            case "it":
+                languageI = new ItalianUI();
+                break;
+            default:
+                languageI = new SpanishUI();
+        }
 
         // CONFIGURANDO EL MENU BAR
         menuBar = View.getMenuBar();
         menuBar.setMinHeight(25);
 
-        menuBar.getMenus().addAll(View.getMenu("Contactos"), View.getMenu("Configuración"));
+        for (String menuLabel : languageI.menuLabels()) {
+            menuBar.getMenus().add(View.getMenu(menuLabel));
+        }
 
-        menuBar.getMenus().get(0).getItems().addAll(View.getMenu("Roberto"), View.getMenu("Carlos"));
+        menuBar.getMenus().get(0).getItems().addAll(View.getMenu("Roberto"), View.getMenu("Carlie"));
         menuBar.getMenus().get(1).getItems().addAll(View.getMenu("Contraseña"));
 
         // CONFIGURANDO LABEL
-        label = View.getLabel("Estas hablando con Pedro ....");
+        // ! Hardcodeado para 2 usuarios
+        String otherUsername = usuario.getNombre().compareTo("Pedro") == 0 ? "Carlos" : "Pedro";
+        label = View.getLabel(languageI.senderDescription() + otherUsername + " ...");
 
         // CONFIGURANDO TEXT FLOW
         textFlow = View.getTextFlow();
@@ -54,7 +74,7 @@ public class Controller {
         scrollPane.setContent(textFlow);
 
         // CONFIGURANDO BUTTON
-        button = View.getSendButton("Enviar");
+        button = View.getSendButton(languageI.sendButtonLabel());
 
         // CONFIGURANDO TEXT FIELD
         textField = View.getTextField();
@@ -72,7 +92,7 @@ public class Controller {
     }
 
     public void iniciar(String arg) {
-
+        // ! Hardcodeado para 2 usuarios
         if (arg.compareTo("1") == 0) {
             usuario = new Usuario("Charlie", 5000, 5001, "en");
         } else {
