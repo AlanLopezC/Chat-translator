@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
 import Chat.Usuario;
+import Idioma.Traductor;
 
 public class Controller {
 
@@ -29,7 +30,7 @@ public class Controller {
     private BorderPane borderPane;
     private VBox root;
 
-    private Usuario usuario;
+    private static Usuario usuario;
 
     public VBox getConfigS() {
 
@@ -73,9 +74,9 @@ public class Controller {
     public void iniciar(String arg) {
 
         if (arg.compareTo("1") == 0) {
-            usuario = new Usuario("Carlos", 5000, 5001);
+            usuario = new Usuario("Charlie", 5000, 5001, "en");
         } else {
-            usuario = new Usuario("Pedro", 5001, 5000);
+            usuario = new Usuario("Pedro", 5001, 5000, "es");
         }
 
         usuario.iniciarServer();
@@ -125,7 +126,15 @@ public class Controller {
                 separator.setStyle("-fx-background-color: black;");
                 textFlow.getChildren().add(new Text(System.lineSeparator()));
 
-                Text text = new Text(message + "\n"
+                // We decode it because comes in {languageCode}-{message} format, and we
+                // translate it also.
+                String translatedMessage;
+                try {
+                    translatedMessage = translateMessage(message);
+                } catch (Exception e) {
+                    translatedMessage = message + " (Couldn't translate)";
+                }
+                Text text = new Text(translatedMessage + "\n"
                         + DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).format(LocalDateTime.now()) + "\n");
                 text.setStroke(Color.BLACK);
                 // textFlow.getChildren(new Text(System.lineSeparator()));
@@ -137,6 +146,18 @@ public class Controller {
 
             }
         });
+    }
+
+    private static String translateMessage(String encodedString) throws Exception {
+        // es-Pedro: Hola a todos
+        String[] decoded = encodedString.split("-", 2);
+        String langCode = decoded[0];
+        String[] rest = decoded[1].split(":", 2);
+        String name = rest[0] + ": ";
+        String message = rest[1];
+
+        return name + Traductor.translate(langCode, usuario.getLang(), message);
+
     }
 
 }

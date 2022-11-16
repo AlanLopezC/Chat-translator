@@ -1,3 +1,5 @@
+package Idioma;
+
 import java.io.BufferedReader;
 import java.io.OutputStream;
 import java.io.InputStreamReader;
@@ -23,27 +25,30 @@ public class Traductor {
     System.out.print("Escribe en Español: ");
     String text = scanner.nextLine().strip();
 
-    Traductor.translate(fromLang, toLang, text);
+    String translated = Traductor.translate(fromLang, toLang, text);
+    System.out.println(translated);
+    scanner.close();
   }
 
   /**
    * Sends out a WhatsApp message via WhatsMate WA Gateway.
    */
-  public static void translate(String fromLang, String toLang, String text) throws Exception {
-    // TODO: Should have used a 3rd party library to make a JSON string from an object
+  public static String translate(String fromLang, String toLang, String text) throws Exception {
+    // TODO: Should have used a 3rd party library to make a JSON string from an
+    // object
     String jsonPayload = new StringBuilder()
-      .append("{")
-      .append("\"fromLang\":\"")
-      .append(fromLang)
-      .append("\",")
-      .append("\"toLang\":\"")
-      .append(toLang)
-      .append("\",")
-      .append("\"text\":\"")
-      .append(text)
-      .append("\"")
-      .append("}")
-      .toString();
+        .append("{")
+        .append("\"fromLang\":\"")
+        .append(fromLang)
+        .append("\",")
+        .append("\"toLang\":\"")
+        .append(toLang)
+        .append("\",")
+        .append("\"text\":\"")
+        .append(text)
+        .append("\"")
+        .append("}")
+        .toString();
 
     URL url = new URL(ENDPOINT);
     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -59,16 +64,18 @@ public class Traductor {
     os.close();
 
     int statusCode = conn.getResponseCode();
-    System.out.println("Status Code: " + statusCode);
+    // System.out.println("Status Code: " + statusCode);
     BufferedReader br = new BufferedReader(new InputStreamReader(
-        (statusCode == 200) ? conn.getInputStream() : conn.getErrorStream()
-      ));
-    String output;
-    while ((output = br.readLine()) != null) {
-        System.out.println(output);
+        (statusCode == 200) ? conn.getInputStream() : conn.getErrorStream()));
+
+    StringBuffer output = new StringBuffer();
+    String curr;
+    while ((curr = br.readLine()) != null) {
+      output.append(curr);
     }
+
     conn.disconnect();
+    return output.toString();
   }
 
 }
-
