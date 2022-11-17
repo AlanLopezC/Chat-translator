@@ -6,4 +6,26 @@ public interface LanguageInterface {
     public String senderDescription();
 
     public String sendButtonLabel();
+
+    public String setActive();
+
+    public String setPassWord();
+
+    public String setContact();
+
+    public String informationNotice();
+
+    public String addContact();
+
+    public String fieldEmpty();
+
+    public String enterUserName();
+
+    public String userNameDontExit();
+
+    public String userHasAdded();
+
+    public String cannotAddYourself();
+
+
 }

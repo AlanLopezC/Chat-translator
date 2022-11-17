@@ -1,6 +1,5 @@
 package UI;
 
-import javafx.beans.WeakInvalidationListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -8,12 +7,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.TextFlow;
-
-import java.util.WeakHashMap;
+import javafx.scene.text.*;
 
 public class View {
 
@@ -23,13 +17,22 @@ public class View {
     public static MenuBar getMenuBar() {
 
         // CREANDO LOS MENUS DESPEGABLES
-        Menu preSet = new Menu();
-        Menu preContacts = new Menu();
+        // Menu preSet = new Menu();
+        // Menu preContacts = new Menu();
 
-        return new MenuBar(preContacts, preSet);
+        // return new MenuBar(preContacts, preSet);
+        return new MenuBar();
     }
 
-    public static Menu getMenu(String name) {
+    public static RadioMenuItem getRadioMenuItem(String name) {
+        return new RadioMenuItem(name);
+    }
+
+    public static ToggleGroup getToggleGroup(){
+        return new ToggleGroup();
+    }
+
+    public static Menu getMenu(String name){
         return new Menu(name);
     }
 

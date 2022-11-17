@@ -1,29 +1,33 @@
 package Chat;
 
-import java.util.*;
-
-import Idioma.Traductor;
 import UI.Controller;
 
-import java.net.*;
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Usuario implements Observador, Serializable {
-    private String idUsusario;
+    private final String idUsusario;
+
+    private final String nombre;
+
     private Server servidor;
-    private int puertoCliente;
-    private int puertoServer;
+    private int puertoAmigo;
+    private final int miPuerto;
     private String lang;
 
-    public Usuario(String idU, int puertoServer, int puertoCliente, String lang) {
+    private Map<String, Usuario> contactos;
+
+    public Usuario(String nombreIn, String idU, int miPuertoIn, String lang) {
+        nombre = nombreIn;
         idUsusario = idU;
-        this.puertoServer = puertoServer;
-        this.puertoCliente = puertoCliente;
+        this.miPuerto = miPuertoIn;
         this.lang = lang;
+        contactos = new HashMap<>();
     }
 
     public void iniciarServer() {
-        servidor = Server.getServer(puertoServer);
+        servidor = Server.getServer(miPuerto);
         servidor.agregar(this);
         Thread t = new Thread(servidor);
         t.start();
@@ -32,7 +36,7 @@ public class Usuario implements Observador, Serializable {
     public void enviarMensaje(String mensaje) {
         // {lang-code}-{mensaje} "es-hola"
         String codedMessage = lang + "-" + mensaje;
-        Cliente c = new Cliente(puertoCliente, codedMessage);
+        Cliente c = new Cliente(puertoAmigo, codedMessage);
         Thread t = new Thread(c);
         t.start();
 
@@ -44,69 +48,50 @@ public class Usuario implements Observador, Serializable {
 
     }
 
+    public void agregarContacto(Usuario usuario){
+        contactos.put(usuario.getIdUsuario(), usuario);
+    }
+
+    public void eliminarContacto(String idUsusarioIn){
+        contactos.remove(idUsusarioIn);
+    }
+
+    public Usuario getContacto(String idUsusario){
+        return contactos.get(idUsusario);
+    }
+
+    public boolean usuarioIn(String idUsusariou){
+        return contactos.containsKey(idUsusariou);
+    }
+
     public void actualizar() {
         // System.out.print(servidor.getMensaje());
         Controller.receiveMessage(servidor.getMensaje());
 
     }
 
-    public String getNombre() {
+    public String getNombre(){
+        return nombre;
+    }
+
+    public void setPuertoAmigo(int puertoAmigoIn){
+        puertoAmigo = puertoAmigoIn;
+    }
+
+    public int getPuertoAmigo(){
+        return puertoAmigo;
+    }
+
+    public String getIdUsuario() {
         return idUsusario;
     }
 
-    public int getPuertoServer() {
-        return puertoServer;
+    public int getMiPuerto() {
+        return miPuerto;
     }
 
     public String getLang() {
         return lang;
     }
 
-    // public static void main(String[] args) {
-    // Scanner scn = new Scanner(System.in);
-    // boolean bandera = true;
-    // while (bandera) {
-    // System.out.println("Bienvenido al chat privado...");
-    // System.out.println("1. iniciar chat. ");
-    // System.out.println("2. salir");
-    // String opcion = scn.nextLine();
-    // if (opcion.equals("1")) {
-    // System.out.println("ingrese su nick");
-    // opcion = scn.nextLine();
-    // Usuario user = new Usuario(opcion, 5000, 5001);
-    // user.iniciarServer();
-    // System.out.println("Chat de prueba");
-    // System.out.println("escriba: Salir para cerrar sesion xd");
-    // String mensaje = "";
-    // while (!mensaje.equals("Salir")) {
-    // // Scanner scn = new Scanner(System.in);
-    // mensaje = scn.nextLine();
-    // if (!mensaje.equals("Salir")) {
-    // mensaje = user.getNombre() + ": " + mensaje + "\n";
-    // user.enviarMensaje(mensaje);
-    // }
-
-    // }
-    // } else {
-    // bandera = false;
-    // }
-    // }
-
-    // Usuario user = new
-    // Usuario(args[0],Integer.parseInt(args[1]),Integer.parseInt(args[2]));
-    // user.iniciarServer();
-    // user = new
-    // Usuario(args[0],Integer.parseInt(args[1]),Integer.parseInt(args[2]));
-    // user.iniciarServer();
-    /*
-     * System.out.println("Chat de prueba");
-     * while(true){
-     * //Scanner scn = new Scanner(System.in);
-     * String mensaje = scn.nextLine();
-     * mensaje = user.getNombre() +": "+ mensaje + "\n";
-     * user.enviarMensaje(mensaje);
-     * }
-     */
-
-    // }
 }

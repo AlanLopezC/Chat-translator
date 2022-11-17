@@ -26,7 +26,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        arg = args[0];
+       //  arg = args[0];
         launch(args);
     }
 

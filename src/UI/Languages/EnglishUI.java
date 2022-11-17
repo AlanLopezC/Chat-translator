@@ -18,4 +18,54 @@ public class EnglishUI implements LanguageInterface {
         return "Send";
     }
 
+    @Override
+    public String setActive() {
+        return "Are you connected";
+    }
+
+    @Override
+    public String setPassWord() {
+        return "Modify passWord";
+    }
+
+    @Override
+    public String setContact() {
+        return "Add contacts";
+    }
+
+    @Override
+    public String informationNotice() {
+        return "Information Notice";
+    }
+
+    @Override
+    public String addContact() {
+        return "Add contact";
+    }
+
+    @Override
+    public String fieldEmpty() {
+        return "The field is empty";
+    }
+
+    @Override
+    public String enterUserName() {
+        return "Enter the username";
+    }
+
+    @Override
+    public String userNameDontExit() {
+        return "Username does not exist";
+    }
+
+    @Override
+    public String userHasAdded() {
+        return "The user has already been added";
+    }
+
+    @Override
+    public String cannotAddYourself() {
+        return "You cannot add yourself";
+    }
+
 }
