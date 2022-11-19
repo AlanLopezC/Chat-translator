@@ -95,6 +95,13 @@ public class Usuario implements Observador, Serializable {
         return lang;
     }
 
+    public Map<String, Usuario> getContactos(){
+        return contactos;
+
+    }
+
+
+
 
 
 }

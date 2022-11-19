@@ -23,7 +23,7 @@ public class EnglishUI implements LanguageInterface {
         return "Are you connected";
     }
 
-    @Override
+   @Override
     public String logOut() {
         return "Log Out";
     }
