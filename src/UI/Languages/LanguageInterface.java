@@ -9,7 +9,7 @@ public interface LanguageInterface {
 
     public String setActive();
 
-    public String setPassWord();
+    public String logOut();
 
     public String setContact();
 

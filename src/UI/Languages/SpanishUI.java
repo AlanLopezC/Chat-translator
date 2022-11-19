@@ -24,8 +24,8 @@ public class SpanishUI implements LanguageInterface {
     }
 
     @Override
-    public String setPassWord() {
-        return "Modificar Contraseña";
+    public String logOut() {
+        return "Cerrar Sesión";
     }
 
     @Override

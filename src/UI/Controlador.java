@@ -5,9 +5,9 @@ import javafx.stage.Stage;
 public class Controlador{
 
 
-    private InformationBank informationBank = new InformationBank();
+    // private InformationBank informationBank = new InformationBank();
     private Vista vista;
-    private Usuario usuario = informationBank.getUsuario("jona123");
+    private Usuario usuario; //  = informationBank.getUsuario("jona123");
     public Controlador(){
 
     }
@@ -18,12 +18,17 @@ public class Controlador{
     }
     
     public Usuario getUsuario(String un){
-        return informationBank.getUsuario(un);
+
+        usuario = Modelo.getUsuario(un);
+        // return informationBank.getUsuario(un);
+        return usuario;
     }
     
     public void salir(){
     System.exit(0);
     }
+
+
 
     public void entrarChat(){
         vista.crearElementos();

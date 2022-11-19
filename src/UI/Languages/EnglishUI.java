@@ -24,8 +24,8 @@ public class EnglishUI implements LanguageInterface {
     }
 
     @Override
-    public String setPassWord() {
-        return "Modify passWord";
+    public String logOut() {
+        return "Log Out";
     }
 
     @Override

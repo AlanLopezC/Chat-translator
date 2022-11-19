@@ -24,8 +24,8 @@ public class ItalianUI implements LanguageInterface {
     }
 
     @Override
-    public String setPassWord() {
-        return "Modifica password";
+    public String logOut() {
+        return "Disconnettersi";
     }
 
     @Override

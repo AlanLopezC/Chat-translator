@@ -1,10 +1,7 @@
 package UI;
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.text.*;
 import javafx.scene.Cursor;
@@ -45,7 +42,7 @@ public class Vista{
     private BorderPane borderPane;
     private VBox root2;
     private ToggleGroup toggleGroup;
-    private InformationBank informationBank = new InformationBank();
+    // private InformationBank informationBank = new InformationBank();
     private LanguageInterface languageI;
     private  static Usuario usuario;
     private Stage stage;
@@ -131,7 +128,7 @@ public class Vista{
 
 
         menuBar.getMenus().get(0).getItems().add(new RadioMenuItem(languageI.setContact()));
-        menuBar.getMenus().get(1).getItems().add(new RadioMenuItem(languageI.setPassWord()));
+        menuBar.getMenus().get(1).getItems().add(new RadioMenuItem(languageI.logOut()));
 
         toggleGroup = new ToggleGroup();
 
@@ -147,6 +144,11 @@ public class Vista{
             }
         });
 
+       configuration.getItems().get(0).setOnAction(e -> {
+           stage.setScene(scene1);
+       });
+
+
         toggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             @Override
             public void changed(ObservableValue<? extends Toggle> observableValue, Toggle toggle, Toggle t1) {
@@ -158,7 +160,8 @@ public class Vista{
                     RadioMenuItem radioMenuItem = (RadioMenuItem) toggleGroup.getSelectedToggle();
                     String s = radioMenuItem.getText();
 
-                    Usuario userToTalk = informationBank.getUsuario(s);
+                    // Usuario userToTalk = informationBank.getUsuario(s);
+                    Usuario userToTalk = controlador.getUsuario(s);
                     label.setText(languageI.senderDescription() + userToTalk.getNombre());
 
                     usuario.setPuertoAmigo(userToTalk.getMiPuerto());
@@ -170,10 +173,6 @@ public class Vista{
 
 
 
-        // CONFIGURANDO LABEL
-        // ! Hardcodeado para 2 usuarios
-       // String otherUsername = usuario.getNombre().compareTo("Pedro") == 0 ? "Carlos" : "Pedro";
-        // label = View.getLabel(languageI.senderDescription() + otherUsername + " ...");
         label = new Label(languageI.setActive());
         label.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
         label.setUnderline(true);
