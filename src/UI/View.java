@@ -14,74 +14,7 @@ public class View {
     final static double WIDTH = 700;
     final static double HEIGHT = 500;
 
-    public static MenuBar getMenuBar() {
 
-        // CREANDO LOS MENUS DESPEGABLES
-        // Menu preSet = new Menu();
-        // Menu preContacts = new Menu();
-
-        // return new MenuBar(preContacts, preSet);
-        return new MenuBar();
-    }
-
-    public static RadioMenuItem getRadioMenuItem(String name) {
-        return new RadioMenuItem(name);
-    }
-
-    public static ToggleGroup getToggleGroup(){
-        return new ToggleGroup();
-    }
-
-    public static Menu getMenu(String name){
-        return new Menu(name);
-    }
-
-    public static Label getLabel(String text) {
-
-        Label label = new Label(text);
-        label.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
-        label.setUnderline(true);
-        return label;
-    }
-
-    public static ScrollPane getScrollPane() {
-
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setFitToHeight(true);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setPadding(new Insets(20, 20, 20, 20));
-        scrollPane.setStyle("-fx-color: gray;");
-
-        return scrollPane;
-    }
-
-    public static TextFlow getTextFlow() {
-        return new TextFlow();
-    }
-
-    public static HBox getBottonMenu(double v, TextField textField, Button button) {
-        return new HBox(v, textField, button);
-    }
-
-    public static TextField getTextField() {
-        return new TextField();
-    }
-
-    public static Button getSendButton(String name) {
-        return new Button(name);
-    }
-
-    public static Insets getMargin(double v) {
-        return new Insets(v);
-    }
-
-    public static void setMargin(Insets margin, Label label, ScrollPane scrollPane, HBox hBox) {
-
-        BorderPane.setMargin(label, margin);
-        BorderPane.setMargin(scrollPane, margin);
-        BorderPane.setMargin(hBox, margin);
-
-    }
 
     public static BorderPane getLayout(Label label, ScrollPane scrollPane, HBox hBox) {
 

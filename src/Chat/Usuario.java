@@ -1,7 +1,7 @@
 package Chat;
 
-import UI.Controller;
-
+import Idioma.*;
+import UI.*;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -66,14 +66,15 @@ public class Usuario implements Observador, Serializable {
 
     public void actualizar() {
         // System.out.print(servidor.getMensaje());
-        Controller.receiveMessage(servidor.getMensaje());
+        Vista.receiveMessage(servidor.getMensaje());
+
 
     }
 
     public String getNombre(){
         return nombre;
     }
-
+     
     public void setPuertoAmigo(int puertoAmigoIn){
         puertoAmigo = puertoAmigoIn;
     }
@@ -93,5 +94,7 @@ public class Usuario implements Observador, Serializable {
     public String getLang() {
         return lang;
     }
+
+
 
 }
