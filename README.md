@@ -1,4 +1,4 @@
-En caso de no tener carpeta lib/:
+En caso de no tener carpeta lib/javafx-17.0.1:
 Hay que agregar carpeta lib/javafx-17.0.1
 
 

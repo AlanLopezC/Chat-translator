@@ -19,15 +19,13 @@ public class Controlador {
 
     private Vista vista;
     // MessageLog in Modelo
-    private static TextFlow messageLog;
     private Usuario usuario; // = informationBank.getUsuario("jona123");
-    private Modelo modelo;
+    private static Modelo modelo;
 
     public Controlador(Stage stage) {
-        Controlador.messageLog = new TextFlow();
-        vista = new Vista(this, stage, messageLog);
+        Controlador.modelo = new Modelo();
+        vista = new Vista(this, stage, modelo.getMessageLog());
         vista.CrearComponentesyVista();
-        modelo = new Modelo();
     }
 
     public Usuario logIn(String userName) {
@@ -64,17 +62,18 @@ public class Controlador {
 
                 Separator separator = new Separator(Orientation.HORIZONTAL);
                 separator.setStyle("-fx-background-color: black;");
-                messageLog.getChildren().add(new Text(System.lineSeparator()));
+
+                modelo.addToMessageLog(new Text(System.lineSeparator()));
 
                 Text text = new Text(message + "\n"
                         + DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).format(LocalDateTime.now()) + "\n");
                 text.setStroke(Color.BLACK);
                 // messageLog.getChildren(new Text(System.lineSeparator()));
-                messageLog.getChildren().add(text);
-                messageLog.getChildren().add(new Text(System.lineSeparator()));
+                modelo.addToMessageLog(text);
+                modelo.addToMessageLog(new Text(System.lineSeparator()));
 
-                separator.prefWidthProperty().bind(messageLog.widthProperty());
-                messageLog.getChildren().add(separator);
+                separator.prefWidthProperty().bind(modelo.getMessageLog().widthProperty());
+                modelo.addToMessageLog(separator);
 
             }
         });
@@ -86,21 +85,21 @@ public class Controlador {
 
             Separator separator = new Separator(Orientation.HORIZONTAL);
             separator.setStyle("-fx-background-color: black;");
-            messageLog.getChildren().add(new Text(System.lineSeparator()));
+            modelo.addToMessageLog(new Text(System.lineSeparator()));
 
             Text nombre = new Text(usuario.getNombre() + ": ");
             nombre.setFill(Color.BLUE);
 
-            messageLog.getChildren().add(nombre);
+            modelo.addToMessageLog(nombre);
             Text text = new Text(message + "\n"
                     + DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).format(LocalDateTime.now()) + "\n");
             text.setStroke(Color.BLACK);
             // messageLog.getChildren(new Text(System.lineSeparator()));
-            messageLog.getChildren().add(text);
-            messageLog.getChildren().add(new Text(System.lineSeparator()));
+            modelo.addToMessageLog(text);
+            modelo.addToMessageLog(new Text(System.lineSeparator()));
 
             separator.prefWidthProperty().bind(messageLog.widthProperty());
-            messageLog.getChildren().add(separator);
+            modelo.addToMessageLog(separator);
             textField.clear();
 
             if (usuario.getPuertoAmigo() != 0) {
