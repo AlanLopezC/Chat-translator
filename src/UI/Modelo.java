@@ -4,17 +4,17 @@ import Chat.Usuario;
 
 public class Modelo{
 
-    private static InformationBank bank = new InformationBank();
+    private InformationBank bank = new InformationBank();
 
-    public static Usuario getUsuario(String idU){
+    public Usuario getUsuario(String idU){
         return bank.getUsuario(idU);
     }
 
-    public static void agregarUsuario(Usuario usuario){
+    public void agregarUsuario(Usuario usuario){
         bank.agregarUsuario(usuario);
     }
 
-    public static void eliminarUsuario(String usuario){
+    public void eliminarUsuario(String usuario){
         bank.eliminarUsuario(usuario);
     }
 }

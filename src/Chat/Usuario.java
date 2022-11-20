@@ -35,17 +35,9 @@ public class Usuario implements Observador, Serializable {
     }
 
     public void enviarMensaje(String mensaje) {
-        // {lang-code}-{mensaje} "es-hola"
-        String codedMessage = lang + "-" + mensaje;
-        Cliente c = new Cliente(puertoAmigo, codedMessage);
+        Cliente c = new Cliente(puertoAmigo, mensaje);
         Thread t = new Thread(c);
         t.start();
-
-        /*
-         * c = new Cliente(puertoServer,mensaje);
-         * t = new Thread(c);
-         * t.start();
-         */
 
     }
 
@@ -97,6 +89,10 @@ public class Usuario implements Observador, Serializable {
 
     public String getNombreAmigo() {
         return nombreAmigo;
+    }
+
+    public Map<String, Usuario> getContactos() {
+        return contactos;
     }
 
     public void setNombreAmigo(String nombreAmigo) {

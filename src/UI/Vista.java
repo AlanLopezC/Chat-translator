@@ -9,8 +9,6 @@ import javafx.geometry.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 import UI.Languages.*;
 import Chat.*;
@@ -36,7 +34,6 @@ public class Vista {
     private BorderPane borderPane;
     private VBox root2;
     private ToggleGroup toggleGroup;
-    // private InformationBank informationBank = new InformationBank();
     private LanguageInterface languageI;
     private static Usuario usuario;
     private Stage stage;
@@ -61,11 +58,13 @@ public class Vista {
         btnEntrar.setCursor(Cursor.HAND);
         btnEntrar.setOnAction(e -> {
 
-            usuario = controlador.getUsuario(textU.getText());
-            controlador.entrarChat();
-
-            sendButton.setOnAction(ev -> controlador.enviarMensaje(textFlow, textField));
+            usuario = controlador.logIn(textU.getText());
+            if (usuario != null) {
+                controlador.entrarChat();
+                sendButton.setOnAction(ev -> controlador.enviarMensaje(textFlow, textField));
+            }
         });
+
         btnSalir = new Button("Salir");
         btnSalir.setMaxWidth(150);
         btnSalir.setCursor(Cursor.HAND);
@@ -117,24 +116,21 @@ public class Vista {
         configuration = menuBar.getMenus().get(1);
 
         menuBar.getMenus().get(0).getItems().add(new RadioMenuItem(languageI.setContact()));
+        controlador.cargarContactos(contactos, usuario);
+
         menuBar.getMenus().get(1).getItems().add(new RadioMenuItem(languageI.logOut()));
 
         toggleGroup = new ToggleGroup();
 
         contactos.getItems().get(0).setOnAction(e -> {
 
-            Usuario usuario1 = this.getUsuario();
+            Usuario usuario1 = controlador.agregarUsuario(languageI, usuario);
             // Usuario usuario1 = new Usuario("Alan", "alan123", 5000, "en");
-            if (usuario1 != null) {
-                RadioMenuItem radioMenuItem = new RadioMenuItem(usuario1.getIdUsuario());
-                radioMenuItem.setToggleGroup(toggleGroup);
-                contactos.getItems().add(radioMenuItem);
-                usuario.agregarContacto(usuario1);
-            }
+            controlador.agregarContactoMenu(usuario1);
         });
 
         configuration.getItems().get(0).setOnAction(e -> {
-            stage.setScene(scene1);
+            controlador.regresarLogin();
         });
 
         toggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
@@ -146,15 +142,7 @@ public class Vista {
                     textFlow.getChildren().clear();
 
                     RadioMenuItem radioMenuItem = (RadioMenuItem) toggleGroup.getSelectedToggle();
-                    String s = radioMenuItem.getText();
-
-                    // Usuario userToTalk = informationBank.getUsuario(s);
-                    Usuario userToTalk = controlador.getUsuario(s);
-                    label.setText(languageI.senderDescription() + userToTalk.getNombre());
-
-                    usuario.setPuertoAmigo(userToTalk.getMiPuerto());
-                    usuario.setNombreAmigo(userToTalk.getIdUsuario());
-                    usuario.iniciarServer();
+                    controlador.toggle(radioMenuItem, languageI, usuario, label);
 
                 }
             }
@@ -228,69 +216,19 @@ public class Vista {
         return btnSalir;
     }
 
-    private Usuario getUsuario() {
-
-        try {
-            TextInputDialog dialog = new TextInputDialog();
-            dialog.setHeaderText(languageI.enterUserName());
-            dialog.setTitle(languageI.addContact());
-
-            Optional<String> response = dialog.showAndWait();
-            String userName = response.get();
-
-            if (userName.isEmpty()) {
-
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setHeaderText(languageI.informationNotice());
-                alert.setContentText(languageI.fieldEmpty());
-                alert.showAndWait();
-
-                return null;
-            }
-
-            Usuario usuario1 = controlador.getUsuario(userName); // OBTENIENDO DEL BANCO DE INFORMACIÓN.
-
-            if (usuario1 == null) {
-
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setHeaderText(languageI.informationNotice());
-                alert.setContentText(languageI.userNameDontExit());
-                alert.showAndWait();
-
-                return null;
-            }
-
-            if (usuario.usuarioIn(usuario1.getIdUsuario())) {
-
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setHeaderText(languageI.informationNotice());
-                alert.setContentText(languageI.userHasAdded());
-                alert.showAndWait();
-
-                return null;
-
-            }
-
-            if (usuario1.getIdUsuario().equals(usuario.getIdUsuario())) {
-
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setHeaderText(languageI.informationNotice());
-                alert.setContentText(languageI.cannotAddYourself());
-                alert.showAndWait();
-
-                return null;
-            }
-
-            return usuario1;
-
-        } catch (NoSuchElementException ignored) {
-
-        }
-        return null;
-    }
-
     public Usuario getU() {
         return usuario;
+    }
+
+    public void agregarContacto(Usuario usuario) {
+        RadioMenuItem radioMenuItem = new RadioMenuItem(usuario.getIdUsuario());
+        radioMenuItem.setToggleGroup(toggleGroup);
+        contactos.getItems().add(radioMenuItem);
+        usuario.agregarContacto(usuario);
+    }
+
+    public void regresarLogin() {
+        stage.setScene(scene1);
     }
 
 }
