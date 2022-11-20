@@ -20,7 +20,7 @@ public class EnglishUI implements LanguageInterface {
 
     @Override
     public String setActive() {
-        return "Are you connected";
+        return "You are connected";
     }
 
     @Override

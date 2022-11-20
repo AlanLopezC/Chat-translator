@@ -1,18 +1,19 @@
 package Chat;
 
-import Idioma.*;
 import UI.*;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Usuario implements Observador, Serializable {
-    private final String idUsusario;
+    private final String idUsuario;
 
     private final String nombre;
 
     private Server servidor;
     private int puertoAmigo;
+    private String nombreAmigo;
+
     private final int miPuerto;
     private String lang;
 
@@ -20,7 +21,7 @@ public class Usuario implements Observador, Serializable {
 
     public Usuario(String nombreIn, String idU, int miPuertoIn, String lang) {
         nombre = nombreIn;
-        idUsusario = idU;
+        idUsuario = idU;
         this.miPuerto = miPuertoIn;
         this.lang = lang;
         contactos = new HashMap<>();
@@ -48,43 +49,42 @@ public class Usuario implements Observador, Serializable {
 
     }
 
-    public void agregarContacto(Usuario usuario){
+    public void agregarContacto(Usuario usuario) {
         contactos.put(usuario.getIdUsuario(), usuario);
     }
 
-    public void eliminarContacto(String idUsusarioIn){
-        contactos.remove(idUsusarioIn);
+    public void eliminarContacto(String idUsuarioIn) {
+        contactos.remove(idUsuarioIn);
     }
 
-    public Usuario getContacto(String idUsusario){
-        return contactos.get(idUsusario);
+    public Usuario getContacto(String idUsuario) {
+        return contactos.get(idUsuario);
     }
 
-    public boolean usuarioIn(String idUsusariou){
-        return contactos.containsKey(idUsusariou);
+    public boolean usuarioIn(String idUsuario) {
+        return contactos.containsKey(idUsuario);
     }
 
     public void actualizar() {
         // System.out.print(servidor.getMensaje());
-        Vista.receiveMessage(servidor.getMensaje());
-
+        Controlador.receiveMessage(servidor.getMensaje());
 
     }
 
-    public String getNombre(){
+    public String getNombre() {
         return nombre;
     }
-     
-    public void setPuertoAmigo(int puertoAmigoIn){
+
+    public void setPuertoAmigo(int puertoAmigoIn) {
         puertoAmigo = puertoAmigoIn;
     }
 
-    public int getPuertoAmigo(){
+    public int getPuertoAmigo() {
         return puertoAmigo;
     }
 
     public String getIdUsuario() {
-        return idUsusario;
+        return idUsuario;
     }
 
     public int getMiPuerto() {
@@ -95,6 +95,12 @@ public class Usuario implements Observador, Serializable {
         return lang;
     }
 
+    public String getNombreAmigo() {
+        return nombreAmigo;
+    }
 
+    public void setNombreAmigo(String nombreAmigo) {
+        this.nombreAmigo = nombreAmigo;
+    }
 
 }
