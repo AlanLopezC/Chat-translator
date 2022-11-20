@@ -67,23 +67,13 @@ public class Vista{
         btnEntrar.setMaxWidth(150);
         btnEntrar.setCursor(Cursor.HAND);
         btnEntrar.setOnAction(e -> {
-            usuario = controlador.getUsuario(textU.getText());
 
+            usuario = controlador.logIn(textU.getText());
             if (usuario != null){
                 controlador.entrarChat();
                 button.setOnAction(ev -> controlador.Chatear(textField,textFlow,usuario));
             }
-            else {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setHeaderText("Aviso de información");
-                alert.setContentText("Usuario Incorrecto");
-                alert.showAndWait();
-            }
-                
-            // controlador.entrarChat();
-            // button.setOnAction(ev -> controlador.Chatear(textField,textFlow,usuario));
         });
-
 
 
         btnSalir = new Button("Salir");

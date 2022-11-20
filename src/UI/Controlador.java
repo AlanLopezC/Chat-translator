@@ -27,6 +27,20 @@ public class Controlador{
         vista.CrearComponentesyVista();
         modelo = new Modelo();
     }
+
+    public Usuario logIn(String userName){
+        Usuario usuario = modelo.getUsuario(userName);
+        if (usuario == null){
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Aviso de información");
+            alert.setContentText("Usuario Incorrecto");
+            alert.showAndWait();
+        }
+        return usuario;
+    }
+
+
     
     public Usuario getUsuario(String un){
         return modelo.getUsuario(un);
