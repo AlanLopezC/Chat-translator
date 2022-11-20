@@ -5,52 +5,49 @@ import java.security.PublicKey;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UsuarioProxy implements Observador, Serializable, InterfazUsuario{
+public class UsuarioProxy implements Observador, Serializable, InterfazUsuario {
 
-
-    private  Usuario usuarioReal;
+    private Usuario usuarioReal;
     private Map<String, Usuario> contactos;
 
     private int puertoAmigoAgregado;
 
     private Usuario usuarioAgregado;
 
-    public UsuarioProxy(Usuario usuarioRealIn){
+    public UsuarioProxy(Usuario usuarioRealIn) {
         usuarioReal = usuarioRealIn;
         contactos = new HashMap<>();
     }
 
-
     // GETTERS
 
-    public String getNombre(){
+    public String getNombre() {
         return usuarioReal.getNombre();
     }
 
-    public String getIdUsuario(){
+    public String getIdUsuario() {
         return usuarioReal.getIdUsuario();
     }
 
-    public int getMiPuerto(){
+    public int getMiPuerto() {
         return usuarioReal.getMiPuerto();
     }
 
-    public String getLang(){
+    public String getLang() {
         return usuarioReal.getLang();
     }
 
-    public int getPuertoAmigo(){
+    public int getPuertoAmigo() {
         return usuarioReal.getPuertoAmigo();
     }
 
-    public Map<String, Usuario> getContactos(){
+    public Map<String, Usuario> getContactos() {
         return usuarioReal.getContactos();
     }
 
-    public boolean usuarioIn(String idUsuario){
+    public boolean usuarioIn(String idUsuario) {
         return usuarioReal.usuarioIn(idUsuario);
     }
-
 
     // PROXY.
 
@@ -65,30 +62,27 @@ public class UsuarioProxy implements Observador, Serializable, InterfazUsuario{
         puertoAmigoAgregado = puertoAmigoIn;
     }
 
-    public void actualizarContactosEnReales(){
-        usuarioReal.actualizarContactos(usuarioAgregado);
-    }
+    // public void actualizarContactosEnReales(){
+    // usuarioReal.actualizarContactos(usuarioAgregado);
+    // }
 
-    public void actualizarPuertoAmigoEnReal(){
-        usuarioReal.actualizarPuertoAmigo(puertoAmigoAgregado);
-    }
-
+    // public void actualizarPuertoAmigoEnReal(){
+    // usuarioReal.actualizarPuertoAmigo(puertoAmigoAgregado);
+    // }
 
     // ENVIAR Y RECIBIR MENSAJES
 
-    public void iniciarServer(){
+    public void iniciarServer() {
         usuarioReal.iniciarServer();
     }
 
-    public void enviarMensaje(String mensaje){
+    public void enviarMensaje(String mensaje) {
         usuarioReal.enviarMensaje(mensaje);
     }
-
 
     @Override
     public void actualizar() {
         usuarioReal.actualizar();
     }
-
 
 }

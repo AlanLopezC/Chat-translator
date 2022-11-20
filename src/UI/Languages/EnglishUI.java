@@ -20,10 +20,10 @@ public class EnglishUI implements LanguageInterface {
 
     @Override
     public String setActive() {
-        return "Are you connected";
+        return "You are connected";
     }
 
-   @Override
+    @Override
     public String logOut() {
         return "Log Out";
     }
