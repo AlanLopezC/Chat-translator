@@ -1,14 +1,17 @@
-package UI;
+package UI.BancoInformacion;
 
 import Chat.Usuario;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class InformationBank {
+public class InformationBank implements InterfaceIBank {
 
     private Map<String, Usuario> usuarios;
 
+    /**
+     * Método para crear un objeto InformationBank.
+     */
     public InformationBank() {
 
         usuarios = new HashMap<>();
@@ -17,15 +20,33 @@ public class InformationBank {
         usuarios.put("jona123", new Usuario("Jonathan", "jona123", 4000, "it"));
     }
 
+    @Override
     public void agregarUsuario(Usuario usuario) {
         usuarios.put(usuario.getNombre(), usuario);
     }
 
+    @Override
     public void eliminarUsuario(String usuario) {
         usuarios.remove(usuario);
     }
 
+    @Override
     public Usuario getUsuario(String usuarioId) {
         return usuarios.get(usuarioId);
     }
+
+    /**
+     * Método para agregar de verdad el usuario agregado al Banco de Información.
+     */
+    public void agregarUsuarioReal(Usuario usuario){
+        usuarios.put(usuario.getIdUsuario(), usuario);
+    }
+
+    /**
+     * Método para agregar de verdad el usuario agregado al Banco de Información.
+     */
+    public void eliminarUsuarioReal(String usuario){
+        usuarios.remove(usuario);
+    }
+
 }

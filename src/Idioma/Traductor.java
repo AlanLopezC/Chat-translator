@@ -8,34 +8,20 @@ import java.net.URL;
 import java.util.Scanner;
 
 public class Traductor {
-  // TODO: If you have your own Premium account credentials, put them down here:
   private static final String CLIENT_ID = "azuelgamelot3@gmail.com";
   private static final String CLIENT_SECRET = "e2e9f12786a94f629a980374c86ad6fa";
   private static final String ENDPOINT = "http://api.whatsmate.net/v1/translation/translate";
 
   /**
-   * Entry Point
-   */
-  public static void main(String[] args) throws Exception {
-    // TODO: Specify your translation requirements here:
-    String fromLang = "es";
-    String toLang = "en";
-
-    Scanner scanner = new Scanner(System.in);
-    System.out.print("Escribe en Español: ");
-    String text = scanner.nextLine().strip();
-
-    String translated = Traductor.translate(fromLang, toLang, text);
-    System.out.println(translated);
-    scanner.close();
-  }
-
-  /**
-   * Sends out a WhatsApp message via WhatsMate WA Gateway.
+   * Método para traducir una cadena de texto de un idioma a otro.
+   * @param fromLang - El idioma de la cadena de texto.
+   * @param toLang - El idioma al que queremos que se traduzca la cadena de texto.
+   * @param text - La cadena de texto a traducir.
+   * @return String - La cadena de texto al idioma especificado.
+   * @throws Exception - Si ocurre un error.
    */
   public static String translate(String fromLang, String toLang, String text) throws Exception {
-    // TODO: Should have used a 3rd party library to make a JSON string from an
-    // object
+
     String jsonPayload = new StringBuilder()
         .append("{")
         .append("\"fromLang\":\"")
@@ -64,7 +50,6 @@ public class Traductor {
     os.close();
 
     int statusCode = conn.getResponseCode();
-    // System.out.println("Status Code: " + statusCode);
     BufferedReader br = new BufferedReader(new InputStreamReader(
         (statusCode == 200) ? conn.getInputStream() : conn.getErrorStream()));
 
@@ -73,7 +58,6 @@ public class Traductor {
     while ((curr = br.readLine()) != null) {
       output.append(curr);
     }
-
     conn.disconnect();
     return output.toString();
   }

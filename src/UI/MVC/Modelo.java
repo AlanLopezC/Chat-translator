@@ -1,13 +1,15 @@
-package UI;
+package UI.MVC;
 
 import Chat.Usuario;
+import UI.BancoInformacion.IbankProxy;
+import UI.BancoInformacion.InformationBank;
 import javafx.scene.Node;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
 public class Modelo {
 
-    private InformationBank bank = new InformationBank();
+    private IbankProxy bank = new IbankProxy(new InformationBank());
     private TextFlow messagesLog = new TextFlow();
 
     public TextFlow getMessagesLog() {
@@ -33,4 +35,9 @@ public class Modelo {
     public void eliminarUsuario(String usuario) {
         bank.eliminarUsuario(usuario);
     }
+
+    public IbankProxy getBank(){
+        return bank;
+    }
+
 }

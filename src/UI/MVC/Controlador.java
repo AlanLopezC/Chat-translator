@@ -1,4 +1,4 @@
-package UI;
+package UI.MVC;
 
 import UI.Languages.*;
 import Chat.*;
@@ -20,6 +20,10 @@ public class Controlador {
     private Vista vista;
     private static Modelo modelo;
 
+    /**
+     * Método para crear un objeto controlador
+     * @param stage - Stage
+     */
     public Controlador(Stage stage) {
         modelo = new Modelo();
         vista = new Vista(this, stage, modelo.getMessagesLog());

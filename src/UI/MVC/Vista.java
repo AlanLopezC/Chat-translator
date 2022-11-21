@@ -1,4 +1,4 @@
-package UI;
+package UI.MVC;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -17,7 +17,6 @@ public class Vista {
     Label labelT, labelU;
     TextField textU;
     Button btnEntrar, btnSalir;
-    String nombreUsuario;
     Controlador controlador;
     VBox root;
     Scene scene1;
@@ -40,12 +39,21 @@ public class Vista {
     final static double WIDTH = 700;
     final static double HEIGHT = 500;
 
+    /**
+     * Método para crear un Objeto Vista
+     * @param controlador - El controlodor de la vista.
+     * @param stage - El stage de la vista.
+     * @param textFlow - TextFlow.
+     */
     public Vista(Controlador controlador, Stage stage, TextFlow textFlow) {
         this.controlador = controlador;
         this.stage = stage;
         Vista.textFlow = textFlow;
     }
 
+    /**
+     * Crea los componentes gráficos de la interfaz.
+     */
     public void CrearComponentesyVista() {
         labelT = new Label("Login");
         labelT.setFont(new Font(25));
@@ -89,6 +97,9 @@ public class Vista {
 
     }
 
+    /**
+     * Crea y configura los elementos gráficos de la interfaz.
+     */
     public void crearElementos() {
         switch (usuario.getLang()) {
             case "es":
@@ -125,7 +136,6 @@ public class Vista {
         contactos.getItems().get(0).setOnAction(e -> {
 
             Usuario usuario1 = controlador.agregarUsuario(languageI, usuario);
-            // Usuario usuario1 = new Usuario("Alan", "alan123", 5000, "en");
             controlador.agregarContactoMenu(usuario1);
         });
 
@@ -195,38 +205,53 @@ public class Vista {
 
     }
 
-    // static void slowScrollToBottom(ScrollPane scrollPane) {
-    // Animation animation = new Timeline(
-    // new KeyFrame(Duration.seconds(2),
-    // new KeyValue(scrollPane.vvalueProperty(), 1)));
-    // animation.play();
-    // }
-
+    /**
+     * Método para iniciar la vista del Chat en la Scene 2.
+     */
     public void iniciarVistaChat() {
         stage.setTitle("Translator Conversation");
         stage.setScene(scene2);
-        // stage.resizableProperty().set(false);
 
         // MOSTRANDO STAGE
         stage.show();
     }
 
+    /**
+     * Método para obtener la Scene 1.
+     * @return - Scene 1.
+     */
     public Scene getScene1() {
         return scene1;
     }
 
+    /**
+     * Método para obtener la Scene 2.
+     * @return - Scene 2.
+     */
     public Scene getScene2() {
         return scene2;
     }
 
+    /**
+     * Método para obtener el botón de salir.
+     * @return - Button.
+     */
     public Button getBotonSalir() {
         return btnSalir;
     }
 
+    /**
+     * Método para obtener el usuario.
+     * @return Usuario - usuario.
+     */
     public Usuario getU() {
         return usuario;
     }
 
+    /**
+     * Método para agregar contactos al Menu de la interfaz.
+     * @param usuario - Usuario a agregar.
+     */
     public void agregarContacto(Usuario usuario) {
         RadioMenuItem radioMenuItem = new RadioMenuItem(usuario.getIdUsuario());
         radioMenuItem.setToggleGroup(toggleGroup);
@@ -234,6 +259,9 @@ public class Vista {
         usuario.agregarContacto(usuario);
     }
 
+    /**
+     * Método para volver a estar en el LogIn.
+     */
     public void regresarLogin() {
         stage.setScene(scene1);
     }

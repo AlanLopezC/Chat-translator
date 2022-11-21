@@ -1,8 +1,10 @@
 package Chat;
 
-import java.util.*;
-import java.net.*;
-import java.io.*;
+import java.io.IOException;
+import java.io.Serializable;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
 
 public class Server implements Sujeto, Runnable, Serializable {
 
@@ -12,6 +14,10 @@ public class Server implements Sujeto, Runnable, Serializable {
     private static Server unicoServer;
     private ServerSocket servidor;
 
+    /**
+     * Método para obtener un objeto Server
+     * @param puerto - Puerto del server.
+     */
     private Server(int puerto) {
         this.puerto = puerto;
         try {
@@ -23,13 +29,18 @@ public class Server implements Sujeto, Runnable, Serializable {
         }
     }
 
+    /**
+     * Método para obtener el Servidor.
+     * @param puerto - Puerto del Server.
+     * @return Server - Server ha usar.
+     */
     public static Server getServer(int puerto) {
         if (unicoServer == null) {
             System.out.println("iniciando puerto");
             unicoServer = new Server(puerto);
             return unicoServer;
         } else {
-            System.out.println("server ya inciado");
+            System.out.println("server ya iniciado");
             return unicoServer;
         }
 
@@ -49,13 +60,16 @@ public class Server implements Sujeto, Runnable, Serializable {
         }
     }
 
+    /**
+     * Método para obtener el mensaje recibido.
+     * @return String - Mensaje recibido.
+     */
     public String getMensaje() {
         return mensaje;
     }
 
     public void run() {
         try {
-            // ServerSocket server = new ServerSocket(puerto);
             while (true) {
                 Socket s = servidor.accept();
                 RemoteMessagePassing rmp = new RemoteMessagePassing(s);
@@ -63,11 +77,9 @@ public class Server implements Sujeto, Runnable, Serializable {
 
                 this.notificar();
                 rmp.close();
-
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 }
