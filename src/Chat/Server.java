@@ -16,6 +16,7 @@ public class Server implements Sujeto, Runnable, Serializable {
 
     /**
      * Método para obtener un objeto Server
+     * 
      * @param puerto - Puerto del server.
      */
     private Server(int puerto) {
@@ -31,6 +32,7 @@ public class Server implements Sujeto, Runnable, Serializable {
 
     /**
      * Método para obtener el Servidor.
+     * 
      * @param puerto - Puerto del Server.
      * @return Server - Server ha usar.
      */
@@ -46,14 +48,27 @@ public class Server implements Sujeto, Runnable, Serializable {
 
     }
 
-    public void agregar(Usuario u) {
-        usuariosChat.add(u);
+    /**
+     * Metodo para agregar usuario
+     * 
+     * @param usuario usuario a agregar
+     */
+    public void agregar(Usuario usuario) {
+        usuariosChat.add(usuario);
     }
 
+    /**
+     * Metodo para remover usuario
+     * 
+     * @param usuario usuario a remover
+     */
     public void remover(Usuario usuario) {
         usuariosChat.remove(usuario);
     }
 
+    /**
+     * Metodo para notificar usuarios
+     */
     public void notificar() {
         for (Usuario usuario : usuariosChat) {
             usuario.actualizar();
@@ -62,6 +77,7 @@ public class Server implements Sujeto, Runnable, Serializable {
 
     /**
      * Método para obtener el mensaje recibido.
+     * 
      * @return String - Mensaje recibido.
      */
     public String getMensaje() {

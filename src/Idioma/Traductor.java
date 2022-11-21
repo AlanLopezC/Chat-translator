@@ -5,7 +5,6 @@ import java.io.OutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Scanner;
 
 public class Traductor {
   private static final String CLIENT_ID = "azuelgamelot3@gmail.com";
@@ -14,9 +13,11 @@ public class Traductor {
 
   /**
    * Método para traducir una cadena de texto de un idioma a otro.
+   * 
    * @param fromLang - El idioma de la cadena de texto.
-   * @param toLang - El idioma al que queremos que se traduzca la cadena de texto.
-   * @param text - La cadena de texto a traducir.
+   * @param toLang   - El idioma al que queremos que se traduzca la cadena de
+   *                 texto.
+   * @param text     - La cadena de texto a traducir.
    * @return String - La cadena de texto al idioma especificado.
    * @throws Exception - Si ocurre un error.
    */

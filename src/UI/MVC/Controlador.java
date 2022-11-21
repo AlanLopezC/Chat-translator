@@ -22,6 +22,7 @@ public class Controlador {
 
     /**
      * Método para crear un objeto controlador
+     * 
      * @param stage - Stage
      */
     public Controlador(Stage stage) {
@@ -30,6 +31,12 @@ public class Controlador {
         vista.CrearComponentesyVista();
     }
 
+    /**
+     * Método para iniciar sesion.
+     * 
+     * @param userName nombre de usuario.
+     * @return Usuario usuario ingresado.
+     */
     public Usuario logIn(String userName) {
         Usuario usuario = modelo.getUsuario(userName);
         if (usuario == null) {
@@ -42,19 +49,40 @@ public class Controlador {
         return usuario;
     }
 
-    public Usuario getUsuario(String un) {
-        return modelo.getUsuario(un);
+    /**
+     * Regresa usuario según id.
+     * 
+     * @param id id de usuario.
+     * @return Usuario usuario encontrado.
+     */
+    public Usuario getUsuario(String id) {
+        return modelo.getUsuario(id);
     }
 
+    /**
+     * Método para cerrar programa
+     * 
+     */
     public void salir() {
         System.exit(0);
     }
 
+    /**
+     * Método para entrar al chat.
+     * 
+     */
     public void entrarChat() {
         vista.crearElementos();
         vista.iniciarVistaChat();
     }
 
+    /**
+     * Método para agregar usuario.
+     * 
+     * @param languageI lenguaje de interfaz.
+     * @param usuario   usuario a agregar.
+     * @return Usuario usuario agregado.
+     */
     public Usuario agregarUsuario(LanguageInterface languageI, Usuario usuario) {
 
         try {
@@ -116,12 +144,25 @@ public class Controlador {
         return null;
     }
 
+    /**
+     * Método para agregar contacto a menu.
+     * 
+     * @param usuario usuario a agregar.
+     */
     public void agregarContactoMenu(Usuario usuario) {
         if (usuario != null) {
             vista.agregarContacto(usuario);
         }
     }
 
+    /**
+     * Método para hacer efecto toggle.
+     * 
+     * @param rmi     Menu item.
+     * @param li      Lenguaje de interfaz.
+     * @param Usuario Usuario de quien ve.
+     * @param label   Descripcion.
+     */
     public void toggle(RadioMenuItem rmi, LanguageInterface li, Usuario usuario, Label label) {
         String s = rmi.getText();
 
@@ -134,6 +175,11 @@ public class Controlador {
 
     }
 
+    /**
+     * Mpetodo para recibir mensaje.
+     * 
+     * @param message Mensaje a recibir.
+     */
     public static void receiveMessage(String message) {
 
         Platform.runLater(new Runnable() {
@@ -158,10 +204,26 @@ public class Controlador {
         });
     }
 
+    /**
+     * Traduce mensaje.
+     * 
+     * @param message  Mensaje a traducir
+     * @param fromLang Lenguaje inicial
+     * @param toLang   Lenguaje final
+     * @return String mensaje traducido
+     * @throws Exception
+     */
     private static String translateMessage(String message, String fromLang, String toLang) throws Exception {
         return Traductor.translate(fromLang, toLang, message);
     }
 
+    /**
+     * Metodo para chatear o enviar mensaje.
+     * 
+     * @param textField De donde tomar texto
+     * @param textFlow  Donde escribir texto
+     * @param usuario   Usuario que desea enviar mensaje.
+     */
     public void Chatear(TextField textField, TextFlow textFlow, Usuario usuario) {
         final String mensaje = textField.getText();
         if (!mensaje.isEmpty()) {
@@ -193,18 +255,26 @@ public class Controlador {
         }
     }
 
+    /**
+     * Metodo que determina el cambio de idioma.
+     * * En otro thread para smooth efect.
+     * 
+     * @param usuario Usuario quien envía.
+     * @param message Mensaje que envía.
+     */
     private static void enviarMensaje(Usuario usuario, String message) {
         Runnable runnable = () -> {
             String otherUserLang = modelo.getUsuario(usuario.getIdAmigo()).getLang();
 
             if (otherUserLang != usuario.getLang()) {
-
                 try {
                     final String translated = translateMessage(message, usuario.getLang(), otherUserLang);
                     usuario.enviarMensaje(usuario.getNombre() + ": " + translated);
                 } catch (Exception e) {
                     System.err.println("Couldn't translate message, error: " + e);
                 }
+            } else {
+                usuario.enviarMensaje(usuario.getNombre() + ": " + message);
             }
 
         };
@@ -213,10 +283,19 @@ public class Controlador {
         t.start();
     }
 
+    /**
+     * Metodo para regresar al login.
+     */
     public void regresarLogin() {
         vista.regresarLogin();
     }
 
+    /**
+     * Metodo para cargar contactos.
+     * 
+     * @param contactos Contactos a cargar
+     * @param usuario   usuario de quien se cargan.
+     */
     public void cargarContactos(Menu contactos, Usuario usuario) {
         for (String contacto : usuario.getContactos().keySet()) {
             contactos.getItems().add(new RadioMenuItem(contacto));
