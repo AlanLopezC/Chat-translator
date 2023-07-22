@@ -4,8 +4,7 @@ We designed a Chat Translator App with java, where you receive all messages tran
 
 If you want to try it, you need to create an account and use your credentials.
 
-![Preview](https://github.com/AlanLopezC/Chat-translator/assets/63161554/2c9277af-92b1-4e9f-a76c-dd0b3e40f246)
-
+![Preview](https://github.com/AlanLopezC/Chat-translator/assets/63161554/1c2df461-f2ea-4a4f-8959-9fa76cb8b049)
 
 In case you don't have the folder lib/: 
 You would need to add lib/javafx-17.0.1
