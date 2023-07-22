@@ -8,9 +8,9 @@ import java.net.URL;
 import java.util.Scanner;
 
 public class Traductor {
-  // TODO: If you have your own Premium account credentials, put them down here:
-  private static final String CLIENT_ID = "azuelgamelot3@gmail.com";
-  private static final String CLIENT_SECRET = "e2e9f12786a94f629a980374c86ad6fa";
+  // TODO: Insert your credentials for the api use.
+  private static final String CLIENT_ID = ""; // insert your credentials here
+  private static final String CLIENT_SECRET = ""; // insert your credentials here 
   private static final String ENDPOINT = "http://api.whatsmate.net/v1/translation/translate";
 
   /**
